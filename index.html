@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trademark Matcher</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%84%A2%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<main>
+<header class="top">
+  <h1>Trademark Matcher</h1>
+  <div class="hl"><a href="docs/manual.pdf" target="_blank" rel="noopener">User manual (PDF)</a><div id="who" hidden><span></span><button class="sm" id="outBtn">Sign out</button></div></div>
+</header>
+
+<section id="auth" hidden>
+  <h2>Sign in</h2>
+  <div class="grid">
+    <label class="f"><span>Email</span><input type="email" id="email" autocomplete="email"></label>
+    <label class="f"><span>Password</span><input type="password" id="pw" autocomplete="current-password"></label>
+  </div>
+  <div class="btns" style="margin-top:12px"><button id="inBtn">Sign in</button><button class="sec" id="upAcc">Create account</button><button class="sec" id="lnBtn">Email me a link</button></div>
+  <p class="mut" id="authMsg"></p>
+</section>
+
+<div id="app" hidden>
+<nav class="tabs"><button class="on" data-t="cat">Catalogues</button><button data-t="cmp">Compare</button><button data-t="his">History</button></nav>
+
+<div class="panel" id="p_cat">
+  <section>
+    <h2>Add a PDF catalogue</h2>
+    <div class="pick" id="dzP">Tap to choose a PDF, or drop one here<input type="file" id="pdfF" accept="application/pdf,.pdf"></div>
+    <div class="prev" id="pdfP">One trademark image per page, plus unrelated text.</div>
+    <label class="f" style="margin-top:10px"><span>Catalogue name</span><input type="text" id="catName"></label>
+    <details><summary>Extraction settings</summary><div class="grid" id="g_pdf"></div></details>
+    <button class="big" id="upBtn">Upload and extract</button>
+    <p class="mut" id="upMsg"></p>
+  </section>
+  <section><h2>Your catalogues</h2><div id="catList"></div></section>
+</div>
+
+<div class="panel" id="p_cmp" hidden>
+  <section>
+    <h2>Source trademark</h2>
+    <div class="pick" id="dzS">Tap to choose an image, or drop / paste one here<input type="file" id="srcF" accept="image/*,.png,.jpg,.jpeg,.webp,.gif,.bmp,.svg,.avif"></div>
+    <div class="prev" id="srcP">PNG, JPG, WebP, GIF, BMP, SVG and AVIF work.</div>
+    <label class="f" style="margin-top:10px"><span>Compare against</span><select id="catSel"></select></label>
+  </section>
+  <section><h2>Result filter</h2><div class="grid" id="g_out"></div></section>
+  <section>
+    <h2>Saved filter settings</h2>
+    <p class="mut">Name your current filters to reuse them later. Saving under an existing name updates it.</p>
+    <div class="btns"><select id="preSel"></select><input type="text" id="preName" placeholder="Name, e.g. Strict word-and-logo"><button class="sm" id="preSave">Save</button><button class="sm danger" id="preDel">Delete</button><button class="sm sec" id="preReset">Reset</button></div>
+    <p class="mut" id="preMsg"></p>
+    <h2 style="margin-top:14px">Comparison parameters <button class="sm sec" id="tipsAll" style="margin-left:6px">Show all tips</button></h2>
+    <p class="mut">Tap the ? beside any option for a plain-language explanation.</p>
+    <details open><summary>Preparing images</summary><div class="grid" id="g_pre"></div></details>
+    <details><summary>Variations of the source to test</summary><div class="grid" id="g_tf"></div></details>
+    <details open><summary>Metric weights (0 turns a metric off)</summary><div class="grid" id="g_met"></div></details>
+  </section>
+  <label class="f k" style="margin:0 2px 10px"><input type="checkbox" id="saveChk" checked><span>Save this search to History</span></label>
+  <button class="big" id="go">Compare</button>
+  <div id="st"></div>
+  <div id="res"></div>
+</div>
+
+<div class="panel" id="p_his" hidden>
+  <section><h2>Saved searches</h2><div id="hisList"></div></section>
+  <section><label class="f k"><span>Show matches with status</span><select id="hisFilter"><option value="">All</option><option value="new">New</option><option value="cleared">Cleared</option><option value="watch">Watch</option><option value="conflict">Conflict</option></select></label><p class="mut" id="hisMsg"></p></section>
+  <div id="hisRes"></div>
+</div>
+</div>
+</main>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
